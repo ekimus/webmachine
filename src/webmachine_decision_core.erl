@@ -118,7 +118,7 @@ error_response({Code, _}=CodeAndPhrase, Reason, Resource, EndTime) ->
     {ErrorHTML, ReqState} = ErrorHandler:render_error(
                               Code, {webmachine_request,get(reqstate)}, Reason),
     put(reqstate, ReqState),
-    wrcall({set_resp_body, ErrorHTML}),
+    wrcall({set_resp_body, encode_body(ErrorHTML)}),
     finish_response(CodeAndPhrase, Resource, EndTime).
 
 decision_test(Test,TestVal,TrueFlow,FalseFlow) ->
